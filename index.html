@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<base target="_blank">
+<title>DI本部 ポータルサイト</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet" />
+
+<style>
+    :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --text: #172033;
+    --text-subtle: #64748b;
+    --primary: #ea580c;
+    --primary-soft: #fff7ed;
+    --primary-border: #fed7aa;
+    --warning: #d97706;
+    --warning-soft: #fff7ed;
+    --warning-border: #fed7aa;
+    --border: #e2e8f0;
+    --shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+    --shadow-hover: 0 16px 34px rgba(15, 23, 42, 0.12);
+    --radius: 14px;
+    }
+
+    * {
+    box-sizing: border-box;
+    }
+
+    html {
+    background: var(--bg);
+    scroll-behavior: smooth;
+    }
+
+    body {
+    margin: 0;
+    padding: 24px;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top right, rgba(234, 88, 12, 0.08), transparent 34rem),
+        var(--bg);
+    font-family: "Inter", "Noto Sans JP", sans-serif;
+    line-height: 1.6;
+    }
+
+    a {
+    color: inherit;
+    }
+
+    .portal-shell {
+    width: min(1180px, 100%);
+    margin: 0 auto;
+    }
+
+    .portal-main {
+    display: grid;
+    gap: 14px;
+    }
+
+    .di-slogan-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+    gap: 14px;
+    align-items: stretch;
+    margin-bottom: 14px;
+    }
+
+    .di-slogan-geo {
+    display: none;
+    }
+
+    .di-slogan-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: linear-gradient(150deg, #ffffff 0%, #fffbf7 58%, #fff7ed 100%);
+    box-shadow: var(--shadow);
+    }
+
+    .di-slogan-label {
+    margin: 0 0 14px;
+    color: var(--primary);
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+    }
+
+    .di-slogan-main-slogan {
+    margin: 0 0 6px;
+    color: #0f172a;
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+    white-space: nowrap;
+    }
+
+    .di-slogan-accent-line {
+    width: 100%;
+    height: 3px;
+    margin: 0 0 12px;
+    background: linear-gradient(90deg, var(--primary), #fb923c);
+    border-radius: 999px;
+    }
+
+    .di-slogan-subcopy {
+    margin: 0 0 24px;
+    color: #b88715;
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1.12rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    }
+
+    .hero-knowledge {
+    margin: 8px 0 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    }
+
+    .hero-knowledge-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: #172033;
+    font-size: 0.98rem;
+    font-weight: 900;
+    line-height: 1.35;
+    }
+
+    .hero-knowledge-title i {
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 8px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.78rem;
+    }
+
+    .hero-knowledge-description {
+    margin: 4px 0 10px;
+    color: var(--text-subtle);
+    font-size: 0.76rem;
+    line-height: 1.6;
+    }
+
+    .hero-knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    }
+
+    .hero-knowledge-link {
+    display: flex;
+    min-height: 96px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 10px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.88);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    .hero-knowledge-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-border);
+    background: #ffffff;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.09);
+    }
+
+    .hero-knowledge-link .card-icon {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    border-radius: 9px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.82rem;
+    flex: 0 0 auto;
+    }
+
+    .di-slogan-footer-text {
+    margin: auto 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    color: #94a3b8;
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+    }
+
+    .hero-quick-panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: var(--shadow);
+    }
+
+    .hero-quick-kicker {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.76rem;
+    font-weight: 800;
+    }
+
+    .hero-quick-title {
+    margin: 0;
+    color: #172033;
+    font-size: 1.02rem;
+    font-weight: 900;
+    line-height: 1.35;
+    }
+
+    .hero-quick-description {
+    margin: 4px 0 12px;
+    color: var(--text-subtle);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    }
+
+    .hero-quick-list {
+    display: grid;
+    gap: 8px;
+    margin-top: auto;
+    }
+
+    .hero-quick-link {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+    min-height: 58px;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #ffffff;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    .hero-quick-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-border);
+    background: var(--primary-soft);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+    }
+
+    .hero-quick-link .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 0.96rem;
+    }
+
+    .section-card {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    }
+
+    .section-header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: #172033;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.35;
+    }
+
+    .section-title i {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    border-radius: 8px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.84rem;
+    flex: 0 0 auto;
+    }
+
+    .section-description {
+    margin: 6px 0 0;
+    color: var(--text-subtle);
+    font-size: 0.8rem;
+    }
+
+    .card-grid {
+    display: grid;
+    gap: 10px;
+    }
+
+    .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card-grid--other {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .common-card {
+    display: flex;
+    min-height: 106px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #ffffff;
+    color: inherit;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    .common-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    }
+
+    .common-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-border);
+    background: var(--primary-soft);
+    box-shadow: var(--shadow-hover);
+    }
+
+    .card-icon {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 10px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.98rem;
+    flex: 0 0 auto;
+    }
+
+    .card-title {
+    display: block;
+    margin: 0;
+    color: #1e293b;
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    }
+
+    .card-description {
+    display: block;
+    margin: 0;
+    color: var(--text-subtle);
+    font-size: 0.74rem;
+    line-height: 1.55;
+    }
+
+    .notice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    }
+
+    .notice-card {
+    display: flex;
+    min-height: 220px;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #ffffff;
+    }
+
+    .notice-card.important {
+    border-color: var(--warning-border);
+    background: linear-gradient(180deg, var(--warning-soft), #ffffff 34%);
+    }
+
+    .notice-card.news {
+    border-color: var(--primary-border);
+    background: linear-gradient(180deg, var(--primary-soft), #ffffff 34%);
+    }
+
+    .notice-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 14px;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .notice-card-header i {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 1rem;
+    }
+
+    .notice-card.important .notice-card-header i { color: var(--warning); }
+    .notice-card.news .notice-card-header i { color: var(--primary); }
+
+    .notice-card-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    }
+
+    .notice-card-content {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    padding: 13px 14px;
+    flex: 1;
+    }
+
+    .notice-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    }
+
+    .notice-item:hover {
+    border-color: var(--border);
+    background: #ffffff;
+    }
+
+    .notice-item-body {
+    min-width: 0;
+    }
+
+    .notice-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 4px;
+    }
+
+    .news-date {
+    color: var(--text-subtle);
+    font-size: 0.8rem;
+    font-weight: 600;
+    }
+
+    .news-tag {
+    display: inline-flex;
+    min-width: 88px;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.5;
+    white-space: nowrap;
+    }
+
+    .tag-info { background: #16a34a; }
+    .tag-request { background: #d97706; }
+    .tag-maintenance { background: #dc2626; }
+    .tag-event { background: #2563eb; }
+    .tag-system { background: #7c3aed; }
+    .tag-other { background: #64748b; }
+    .tag-important { background: var(--warning); }
+
+    .news-link {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    color: var(--primary);
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    line-height: 1.45;
+    text-decoration: none;
+    text-align: left;
+    overflow-wrap: anywhere;
+    }
+
+    .news-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    }
+
+    .news-link.is-read,
+    .archive-title.is-read {
+    color: #64748b !important;
+    font-weight: 600 !important;
+    }
+
+    .notice-card-footer {
+    padding: 12px 14px 14px;
+    border-top: 1px solid var(--border);
+    background: #ffffff;
+    text-align: right;
+    }
+
+    .notice-more-button {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--primary-border);
+    border-radius: 10px;
+    color: var(--primary);
+    background: var(--primary-soft);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-decoration: none;
+    }
+
+    .notice-more-button:hover {
+    border-color: var(--primary);
+    background: #dbeafe;
+    }
+
+    .empty-state,
+    .loading-spinner {
+    padding: 22px 12px;
+    color: var(--text-subtle);
+    text-align: center;
+    font-size: 0.92rem;
+    }
+
+    #modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 18px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.45);
+    }
+
+    #modal-content {
+    position: relative;
+    display: flex;
+    width: min(640px, 100%);
+    max-height: min(82vh, 760px);
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 26px 64px rgba(15, 23, 42, 0.24);
+    }
+
+    .modal-header {
+    padding: 22px 56px 16px 22px;
+    border-bottom: 1px solid var(--border);
+    }
+
+    #modal-title {
+    margin: 0;
+    color: #172033;
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.45;
+    }
+
+    #modal-body {
+    min-height: 0;
+    padding: 18px 22px;
+    overflow-y: auto;
+    color: #334155;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    }
+
+    #modal-body a {
+    color: var(--primary);
+    word-break: break-all;
+    }
+
+    .modal-footer {
+    padding: 16px 22px 22px;
+    border-top: 1px solid var(--border);
+    background: var(--surface-soft);
+    text-align: right;
+    }
+
+    #modal-action-btn {
+    display: none;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 16px;
+    border-radius: 10px;
+    color: #ffffff;
+    background: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+    }
+
+    #modal-action-btn:hover {
+    background: #c2410c;
+    }
+
+    .close-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #64748b;
+    background: #ffffff;
+    cursor: pointer;
+    font-size: 1.05rem;
+    }
+
+    .close-btn:hover {
+    color: #172033;
+    background: var(--surface-soft);
+    }
+
+    #archive-page {
+    width: min(980px, 100%);
+    margin: 0 auto;
+    }
+
+    .archive-heading {
+    margin: 0 0 16px;
+    padding: 14px 0 14px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #172033;
+    font-size: 1.4rem;
+    font-weight: 800;
+    }
+
+    #title-important { border-left: 6px solid var(--warning); }
+    #title-news { border-left: 6px solid var(--primary); }
+
+    .archive-list {
+    display: grid;
+    gap: 10px;
+    min-height: 520px;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+    }
+
+    .archive-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #ffffff;
+    overflow: hidden;
+    }
+
+    .archive-toggle {
+    width: 100%;
+    padding: 16px 18px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    }
+
+    .archive-toggle:hover {
+    background: var(--primary-soft);
+    }
+
+    .archive-date {
+    margin-bottom: 4px;
+    color: var(--text-subtle);
+    font-size: 0.82rem;
+    font-weight: 600;
+    }
+
+    .archive-title-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+    .archive-title {
+    color: #172033;
+    font-weight: 800;
+    line-height: 1.5;
+    }
+
+    .archive-chevron {
+    color: #94a3b8;
+    flex: 0 0 auto;
+    }
+
+    .archive-content {
+    display: none;
+    padding: 0 18px 18px;
+    background: #ffffff;
+    }
+
+    .archive-content-inner {
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface-soft);
+    white-space: pre-wrap;
+    line-height: 1.75;
+    }
+
+    .archive-link {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    }
+
+    .pagination-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin: 20px 0 28px;
+    }
+
+    .pagination-btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #334155;
+    background: #ffffff;
+    cursor: pointer;
+    font-weight: 700;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+    border-color: var(--primary-border);
+    background: var(--primary-soft);
+    }
+
+    .pagination-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    }
+
+    .pagination-btn.active {
+    border-color: var(--primary);
+    color: #ffffff;
+    background: var(--primary);
+    pointer-events: none;
+    }
+
+    .pagination-dots {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    color: var(--text-subtle);
+    padding: 0 4px;
+    }
+
+    .story-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #111827;
+    box-shadow: var(--shadow);
+    }
+
+    .story-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border: 0;
+    object-fit: cover;
+    }
+
+    .story-slide.active {
+    opacity: 1;
+    z-index: 10;
+    }
+
+    .story-progress {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    z-index: 50;
+    display: flex;
+    gap: 6px;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    }
+
+    .progress-bar {
+    height: 4px;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    }
+
+    .progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 999px;
+    background: #ffffff;
+    }
+
+    @media (max-width: 1024px) {
+    .di-slogan-hero {
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+        gap: 12px;
+    }
+
+    .di-slogan-inner {
+        padding: 24px;
+    }
+
+    .card-grid,
+    .card-grid--other {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-knowledge-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    }
+
+    @media (max-width: 900px) {
+    .di-slogan-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-quick-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    }
+
+    @media (max-width: 767px) {
+    body {
+        padding: 14px;
+    }
+
+    .di-slogan-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 12px;
+    }
+
+    .di-slogan-inner {
+        padding: 22px 18px;
+        border-radius: 14px;
+    }
+
+    .di-slogan-geo {
+        width: 220px;
+        height: 220px;
+        opacity: 0.1;
+    }
+
+    .di-slogan-label {
+        margin-bottom: 16px;
+        font-size: 0.78rem;
+    }
+
+    .di-slogan-main-slogan {
+        font-size: clamp(1.7rem, 8vw, 2.4rem);
+    }
+
+    .di-slogan-subcopy {
+        margin-bottom: 22px;
+        letter-spacing: 0.12em;
+    }
+
+    .hero-quick-panel {
+        padding: 16px;
+    }
+
+    .hero-knowledge-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-quick-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-quick-link {
+        grid-template-columns: 1fr;
+        align-content: start;
+        min-height: 118px;
+        gap: 10px;
+    }
+
+    .section-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .section-header {
+        display: block;
+    }
+
+    .common-card {
+        min-height: 118px;
+        padding: 14px;
+    }
+
+    .card-grid,
+    .card-grid--other {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .notice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .notice-card {
+        min-height: auto;
+    }
+
+    #modal-overlay {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    #modal-content {
+        max-height: 88vh;
+    }
+    }
+
+    @media (max-width: 420px) {
+    .card-grid,
+    .card-grid--other {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-knowledge-grid,
+    .hero-quick-list {
+        grid-template-columns: 1fr;
+    }
+
+    .di-slogan-main-slogan {
+        font-size: clamp(1.42rem, 7.4vw, 1.8rem);
+    }
+
+    .hero-quick-link,
+    .common-card {
+        min-height: 96px;
+    }
+    }
+</style>
+</head>
+
+<body>
+<div id="modal-overlay">
+    <div id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="close-btn" id="modal-close" type="button" aria-label="閉じる">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal-header">
+        <h2 id="modal-title"></h2>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer">
+        <a id="modal-action-btn" href="#" target="_blank" rel="noopener">詳細・申請・DL</a>
+    </div>
+    </div>
+</div>
+
+<? if (!isArchive) { ?>
+    <div id="top-page" class="portal-shell">
+    <section class="di-slogan-hero">
+        <svg class="di-slogan-geo" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="140" y="-50" width="120" height="120" stroke="#ea580c" stroke-width="1.5" fill="none" transform="rotate(15 140 -50)" />
+        <rect x="170" y="50" width="165" height="165" stroke="#ea580c" stroke-width="0.8" fill="none" transform="rotate(22 170 50)" />
+        <rect x="90" y="100" width="75" height="75" stroke="#ea580c" stroke-width="0.5" fill="none" transform="rotate(-8 90 100)" />
+        <rect x="220" y="5" width="55" height="55" stroke="#ea580c" stroke-width="0.4" fill="none" transform="rotate(35 220 5)" />
+        </svg>
+        <div class="di-slogan-inner">
+        <p class="di-slogan-label">デジタルインテグレーション本部<br>45期スローガン</p>
+        <div class="di-slogan-main-slogan">Growth with Value.</div>
+        <div class="di-slogan-accent-line"></div>
+        <p class="di-slogan-subcopy">価値とともに、成長せよ。</p>
+        <div class="hero-knowledge" aria-labelledby="hero-knowledge-title">
+            <h2 id="hero-knowledge-title" class="hero-knowledge-title"><i class="fa-solid fa-book-open"></i>情報・ナレッジ</h2>
+            <p class="hero-knowledge-description">開発標準・教育・活動記録など、業務に役立つ情報をまとめています。</p>
+            <div class="hero-knowledge-grid">
+            <a href="https://sites.google.com/systena.co.jp/systass2/Home" class="hero-knowledge-link">
+                <span class="card-icon"><i class="fa-solid fa-code"></i></span>
+                <span>
+                <span class="card-title">開発標準 SYSTASS</span>
+                <span class="card-description">開発標準・技術資料</span>
+                </span>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/fwdportal/%E5%90%84%E7%A8%AE%E6%B4%BB%E5%8B%95%E8%A8%98%E9%8C%B2/%E8%81%B7%E5%A0%B4%E7%92%B0%E5%A2%83%E6%94%B9%E5%96%84wg" class="hero-knowledge-link">
+                <span class="card-icon"><i class="fa-solid fa-user-plus"></i></span>
+                <span>
+                <span class="card-title">新人受入マニュアル</span>
+                <span class="card-description">受入・オンボーディング</span>
+                </span>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/robotop/%E3%83%9B%E3%83%BC%E3%83%A0" class="hero-knowledge-link">
+                <span class="card-icon"><i class="fa-solid fa-microchip"></i></span>
+                <span>
+                <span class="card-title">松山事業部 ロボットWG</span>
+                <span class="card-description">ロボットWG活動情報</span>
+                </span>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/learning/%E3%83%9B%E3%83%BC%E3%83%A0" class="hero-knowledge-link">
+                <span class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></span>
+                <span>
+                <span class="card-title">情報共有会・勉強会 資料一覧</span>
+                <span class="card-description">アーカイブ一覧</span>
+                </span>
+            </a>
+            <a href="-" class="hero-knowledge-link">
+                <span class="card-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                <span>
+                <span class="card-title">[リニューアル中]</span>
+                <span class="card-description">[]]</span>
+                </span>
+            </a>
+            </div>
+        </div>
+        <p class="di-slogan-footer-text">Systena Corporation | Digital Integration Division | 45th Period Slogan</p>
+        </div>
+        <aside class="hero-quick-panel" aria-labelledby="hero-quick-title">
+        <span class="hero-quick-kicker"><i class="fa-solid fa-bolt"></i> Quick Access</span>
+        <h2 id="hero-quick-title" class="hero-quick-title">よく使うリンク</h2>
+        <p class="hero-quick-description">日々の業務でよく利用するリンクをまとめています。</p>
+        <div class="hero-quick-list">
+            <a href="#notice-title" class="hero-quick-link" target="_self" onclick="var t=document.getElementById('notice-title');if(t){t.scrollIntoView({behavior:'smooth',block:'start'});return false;}">
+            <span class="card-icon"><i class="fa-solid fa-bell"></i></span>
+            <span>
+                <span class="card-title">お知らせ</span>
+            </span>
+            </a>
+            <a href="https://systena.canbus.com/" class="hero-quick-link">
+            <span class="card-icon"><i class="fa-solid fa-table-list"></i></span>
+            <span>
+                <span class="card-title">Canbus.</span>
+            </span>
+            </a>
+            <a href="https://di-palette.link/user/timeline" class="hero-quick-link">
+            <span class="card-icon"><i class="fa-solid fa-palette"></i></span>
+            <span>
+                <span class="card-title">Palette</span>
+            </span>
+            </a>
+            <a href="https://tyotenawork.jp/login" class="hero-quick-link">
+            <span class="card-icon"><i class="fa-solid fa-briefcase"></i></span>
+            <span>
+                <span class="card-title">tenawork</span>
+            </span>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/fwdportal/%E5%90%84%E7%A8%AE%E3%83%AA%E3%83%B3%E3%82%AF" class="hero-quick-link">
+            <span class="card-icon"><i class="fa-solid fa-file-signature"></i></span>
+            <span>
+                <span class="card-title">各種申請メニュー</span>
+            </span>
+            </a>
+            <a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fsystena.co.jp%2Ffwdportal%2F%25E6%259C%25AC%25E9%2583%25A8%25E6%259C%259D%25E7%25A4%25BC819%25E3%2582%25B9%25E3%2582%25BF%25E3%2583%25BC%25E3%2583%2588&sa=D&sntz=1&usg=AOvVaw0qttV6KMYrzdMtV4Zr1Sc9" class="hero-quick-link">
+            <span class="card-icon"><i class="fa-solid fa-users"></i></span>
+            <span>
+                <span class="card-title">朝会</span>
+            </span>
+            </a>
+        </div>
+        </aside>
+    </section>
+
+    <main class="portal-main">
+        <section class="section-card" aria-labelledby="notice-title">
+        <div class="section-header">
+            <div>
+            <h2 id="notice-title" class="section-title"><i class="fa-solid fa-bell"></i>お知らせ</h2>
+            <p class="section-description">重要なお知らせとニュースを確認できます。</p>
+            </div>
+        </div>
+        <div class="notice-grid">
+            <article class="notice-card important">
+            <div class="notice-card-header">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3 class="notice-card-title">重要なお知らせ</h3>
+            </div>
+            <div class="notice-card-content" id="dynamic-important-container">
+                <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 読み込み中...</div>
+            </div>
+            </article>
+
+            <article class="notice-card news">
+            <div class="notice-card-header">
+                <i class="fa-solid fa-newspaper"></i>
+                <h3 class="notice-card-title">ニュース</h3>
+            </div>
+            <div class="notice-card-content" id="dynamic-news-container">
+                <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> 読み込み中...</div>
+            </div>
+            </article>
+        </div>
+        </section>
+
+        <section class="section-card" aria-labelledby="requests-title">
+        <div class="section-header">
+            <div>
+            <h2 id="requests-title" class="section-title"><i class="fa-solid fa-pen-to-square"></i>業務申請</h2>
+            <p class="section-description">各種申請・依頼はこちらから行えます。</p>
+            </div>
+        </div>
+        <div class="card-grid">
+            <a href="https://forms.gle/qvC4xMax1qYHb9MR6" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-id-card"></i></span>
+            <h3 class="card-title">セキュリティカード申請</h3>
+            <p class="card-description">新規・変更・返却の申請</p>
+            </a>
+            <a href="https://docs.google.com/forms/viewform?hl=ja&id=1TMwo3lLvfR1gUA_g4ESSrtIktxstadDrGcMhb5r-JVw" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-award"></i></span>
+            <h3 class="card-title">資格取得手当申請</h3>
+            <p class="card-description">資格取得後の手当申請</p>
+            </a>
+            <a href="https://forms.gle/fCNDGvAx1aawvpvH7" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-mobile-screen"></i></span>
+            <h3 class="card-title">PC/SP/通信機器申請</h3>
+            <p class="card-description">支給・返却・利用者変更</p>
+            </a>
+            <a href="https://mail.google.com/mail/u/0/?to=fwd-request-ml@systena.co.jp&cc&bcc&su=%E3%81%9D%E3%81%AE%E4%BB%96%E3%80%81%E7%9B%B8%E8%AB%87%E4%BA%8B%E9%A0%85%E3%81%AE%E3%81%94%E9%80%A3%E7%B5%A1_%E2%97%8F%E6%9C%88%E2%97%8F%E6%97%A5&body=%EF%BC%B4%EF%BC%AF%EF%BC%9A%E6%9C%AC%E9%83%A8%E4%BA%8B%E6%A5%AD%E6%8E%A8%E9%80%B2%E5%AE%A4%E3%80%80%E6%8B%85%E5%BD%93%E8%80%85%E6%A7%98%0D%0A%0D%0A%E3%81%8A%E7%96%B2%E3%82%8C%E6%A7%98%E3%81%A7%E3%81%99%E3%80%82%0D%0A%E7%AC%AC%E2%97%8F%E6%8A%80%E8%A1%93%E9%83%A8%E3%81%AE%E2%97%8F%E2%97%8F%E3%81%A7%E3%81%99%E3%80%82%0D%0A%0D%0A%E4%B8%8B%E8%A8%98%E3%81%AE%E4%BE%9D%E9%A0%BC%E3%80%81%E7%9B%B8%E8%AB%87%E4%BA%8B%E9%A0%85%E3%82%92%E9%80%81%E4%BB%98%E3%81%84%E3%81%9F%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%0D%0A%E5%86%85%E5%AE%B9%E3%82%92%E3%81%94%E7%A2%BA%E8%AA%8D%E9%A0%82%E3%81%8D%E3%80%81%E3%81%94%E5%9B%9E%E7%AD%94%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82%0D%0A%0D%0A%E3%81%93%E3%81%93%E3%81%8B%E3%82%89~~~~~~~~~~~~~%0D%0A%EF%BD%B6%EF%BE%83%EF%BD%BA%EF%BE%9E%EF%BE%98%E3%80%80%E5%BA%B6%E5%8B%99%E7%B3%BB%E3%80%80/%E3%80%80%E5%96%B6%E4%BA%8B%E7%B3%BB%E3%80%80/%E3%80%80%E8%B3%BC%E8%B2%B7%E7%B3%BB%E3%80%80%E3%80%80%E2%80%BB%E4%B8%8D%E8%A6%81%E3%81%AA%E9%83%A8%E5%88%86%E5%89%8A%E9%99%A4%0D%0A%0D%0A%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%EF%BC%9A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A%0D%0A~~~~~~~~~~~~~%0D%0A%E9%83%A8%E9%96%80%E9%95%B7%E3%82%92CC%E3%81%AB%E5%90%AB%E3%82%81%E3%81%BE%E3%81%97%E3%81%9F%E3%81%8B%E3%80%80%E3%81%AF%E3%81%84%E3%83%BB%E3%81%84%E3%81%84%E3%81%88%0D%0A~~~~~~~~~~~~~%E3%81%93%E3%81%93%E3%81%BE%E3%81%A7%EF%BC%88%E6%B6%88%E3%81%95%E3%81%AA%E3%81%84%E3%81%A7%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%EF%BC%89%0D%0A%E4%B8%8A%E8%A8%98%E3%80%81%E5%AE%9C%E3%81%97%E3%81%8F%E3%81%8A%E9%A1%98%E3%81%84%E8%87%B4%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%0D%0A%E4%BB%A5%E4%B8%8A%E3%81%A7%E3%81%99%E3%80%82%0D%0A%0D%0A%E6%94%AF%E6%8F%B4%E5%AE%A4%E5%88%A9%E7%94%A8_https://docs.google.com/spreadsheets/d/1PGewchgWeMipvLQFM9J21umdp4F58lwXyABZAh47vvE/edit&fs=1&tf=cm#gid=0%0D%0A" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-circle-question"></i></span>
+            <h3 class="card-title">その他、相談事項</h3>
+            <p class="card-description">依頼・相談事項の連絡</p>
+            </a>
+            <a href="https://forms.gle/9Na4rLJfH4PjqvnEA" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-box"></i></span>
+            <h3 class="card-title">備品申請</h3>
+            <p class="card-description">備品に関する申請</p>
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSer2o_0JppptYieaBzv4McWl4QEbbDi33ZV3EwiIBdidhpvsQ/viewform?usp=pp_url&entry.324783463=%E2%80%BB%E6%9C%AC%E4%BB%B6%E3%81%AF%E7%B2%97%E5%88%A920%EF%BC%85%E4%BB%A5%E4%B8%8A%E3%81%AE%E7%82%BA%E3%80%81%E9%83%A8%E9%95%B7%E6%B1%BA%E8%A3%81%E3%80%82&entry.942803933=0&entry.1062173854=0&entry.345505535=0" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-user-plus"></i></span>
+            <h3 class="card-title">BP新規-参画確定連絡</h3>
+            <p class="card-description">BP新規参画の確定連絡</p>
+            </a>
+            <a href="https://forms.gle/yWZs2TFTrQztUq9UA" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-user-xmark"></i></span>
+            <h3 class="card-title">BP契約変更・終了連絡</h3>
+            <p class="card-description">BP契約の変更・終了</p>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/fwdportal/%E5%90%84%E7%A8%AE%E3%83%AA%E3%83%B3%E3%82%AF#h.qdc5tt80zzi0" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-arrow-trend-up"></i></span>
+            <h3 class="card-title">営業アシスタント関連</h3>
+            <p class="card-description">営業支援関連のリンク</p>
+            </a>
+        </div>
+        </section>
+
+        <section class="section-card" aria-labelledby="other-title">
+        <div class="section-header">
+            <div>
+            <h2 id="other-title" class="section-title"><i class="fa-solid fa-table-cells"></i>その他メニュー</h2>
+            <p class="section-description">活動情報・意見箱・ヘルプデスクなどはこちらです。</p>
+            </div>
+        </div>
+        <div class="card-grid card-grid--other">
+            <a href="https://sites.google.com/systena.co.jp/rifararu/%E3%83%9B%E3%83%BC%E3%83%A0" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-share-nodes"></i></span>
+            <h3 class="card-title">リファラルプログラム</h3>
+            <p class="card-description">紹介制度の詳細</p>
+            </a>
+            <a href="https://www.google.com/url?q=https%3A%2F%2Fsites.google.com%2Fsystena.co.jp%2Ffwdportal%2F%25E7%25A4%25BE%25E5%2593%25A1%25E6%2595%2599%25E8%2582%25B2&sa=D&sntz=1&usg=AOvVaw2bVxrz5ihO2-zBqo9mMFUK" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-book"></i></span>
+            <h3 class="card-title">社員教育</h3>
+            <p class="card-description">教育関連リンク</p>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/fwdportal/%E5%90%84%E7%A8%AE%E6%B4%BB%E5%8B%95%E8%A8%98%E9%8C%B2" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-people-group"></i></span>
+            <h3 class="card-title">WG・部活動</h3>
+            <p class="card-description">各種活動記録</p>
+            </a>
+            <a href="http://sites.google.com/systena.co.jp/fwdportal/%E5%90%84%E7%A8%AE%E6%B4%BB%E5%8B%95%E8%A8%98%E9%8C%B2/%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB%E9%81%8B%E5%96%B6wg/%E6%84%8F%E8%A6%8B%E7%AE%B1" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-comment-dots"></i></span>
+            <h3 class="card-title">意見箱</h3>
+            <p class="card-description">改善提案・要望の投稿</p>
+            </a>
+            <a href="https://sites.google.com/systena.co.jp/fwdportal/di%E7%AA%93%E5%8F%A3" class="common-card">
+            <span class="card-icon"><i class="fa-solid fa-headset"></i></span>
+            <h3 class="card-title">ヘルプデスク</h3>
+            <p class="card-description">ポータル運営への依頼</p>
+            </a>
+        </div>
+        </section>
+    </main>
+    </div>
+<? } ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const overlay = document.getElementById("modal-overlay");
+    const modalTitle = document.getElementById("modal-title");
+    const modalBody = document.getElementById("modal-body");
+    const actionBtn = document.getElementById("modal-action-btn");
+    const impContainer = document.getElementById("dynamic-important-container");
+    const newsContainer = document.getElementById("dynamic-news-container");
+
+    if (impContainer && newsContainer && window.google && google.script && google.script.run) {
+        google.script.run
+        .withSuccessHandler(function(data) {
+            const readHistory = data.readHistory || [];
+            renderImportantNotices(data.importantList || [], readHistory);
+            renderNewsNotices(data.newsList || [], readHistory);
+            setupClickEvents(readHistory);
+        })
+        .withFailureHandler(function(err) {
+            console.error(err);
+            impContainer.innerHTML = '<div class="empty-state">読み込みエラー</div>';
+            newsContainer.innerHTML = '<div class="empty-state">読み込みエラー</div>';
+        })
+        .getNoticeData();
+    } else if (impContainer && newsContainer) {
+        impContainer.innerHTML = '<div class="empty-state">Google Apps Script 上で表示するとお知らせが読み込まれます。</div>';
+        newsContainer.innerHTML = '<div class="empty-state">Google Apps Script 上で表示するとニュースが読み込まれます。</div>';
+    }
+
+    function renderImportantNotices(items, readHistory) {
+        if (!items.length) {
+        impContainer.innerHTML = '<div class="empty-state">重要なお知らせはありません。</div>';
+        return;
+        }
+
+        impContainer.innerHTML = "";
+        items.forEach(function(notice) {
+        const isRead = readHistory.includes(notice.id) ? "is-read" : "";
+        const item = document.createElement("article");
+        item.className = "notice-item";
+        item.innerHTML = `
+            <div class="notice-item-body">
+            <div class="notice-meta">
+                <span class="news-tag tag-important">重要</span>
+                ${notice.date ? `<span class="news-date">${escapeHtml(notice.date)}</span>` : ""}
+            </div>
+            <button type="button" class="news-link modal-trigger ${isRead}"
+                data-read-id="${escapeAttr(notice.id)}"
+                data-title="${escapeAttr(notice.title)}"
+                data-content="${escapeAttr(notice.content || "")}"
+                data-url="${escapeAttr(notice.url || "")}">${escapeHtml(notice.title || "お知らせ")}</button>
+            </div>
+        `;
+        impContainer.appendChild(item);
+        });
+    }
+
+    function renderNewsNotices(items, readHistory) {
+        if (!items.length) {
+        newsContainer.innerHTML = '<div class="empty-state">ニュースはありません。</div>';
+        return;
+        }
+
+        newsContainer.innerHTML = "";
+        items.forEach(function(news) {
+        const tag = news.tag || "お知らせ";
+        const isRead = readHistory.includes(news.id) ? "is-read" : "";
+        const hasUrl = news.url && news.url !== "null" && String(news.url).trim() !== "";
+        const linkHtml = hasUrl
+            ? `<a href="${escapeAttr(news.url)}" class="news-link ${isRead}" target="_blank" rel="noopener" data-read-id="${escapeAttr(news.id)}">${escapeHtml(news.title || "ニュース")}</a>`
+            : `<button type="button" class="news-link modal-trigger ${isRead}"
+                data-read-id="${escapeAttr(news.id)}"
+                data-title="${escapeAttr(news.title)}"
+                data-content="${escapeAttr(news.content || "")}"
+                data-url="">${escapeHtml(news.title || "ニュース")}</button>`;
+
+        const item = document.createElement("article");
+        item.className = "notice-item";
+        item.innerHTML = `
+            <div class="notice-item-body">
+            <div class="notice-meta">
+                <span class="news-tag ${getTagClass(tag)}">${escapeHtml(tag)}</span>
+                <span class="news-date">${escapeHtml(news.date || "")}</span>
+            </div>
+            ${linkHtml}
+            </div>
+        `;
+        newsContainer.appendChild(item);
+        });
+    }
+
+    function setupClickEvents(readHistory) {
+        document.querySelectorAll(".news-link").forEach(function(link) {
+        const id = link.getAttribute("data-read-id");
+        if (id && readHistory.includes(id)) {
+            link.classList.add("is-read");
+        }
+
+        link.addEventListener("click", function(e) {
+            if (this.classList.contains("modal-trigger")) {
+            e.preventDefault();
+            modalTitle.innerText = this.getAttribute("data-title") || "お知らせ";
+            modalBody.innerHTML = this.getAttribute("data-content") || "";
+            const url = this.getAttribute("data-url");
+
+            if (url && url !== "null") {
+                actionBtn.href = url;
+                actionBtn.style.display = "inline-flex";
+            } else {
+                actionBtn.style.display = "none";
+            }
+
+            const padTop = Math.max(18, e.clientY - 260);
+            overlay.style.paddingTop = padTop + "px";
+            overlay.style.display = "flex";
+            document.body.style.overflow = "hidden";
+            markRead(this, id);
+            } else {
+            markRead(this, id);
+            }
+        });
+        });
+    }
+
+    function markRead(element, id) {
+        if (!id || element.classList.contains("no-log") || element.classList.contains("is-read")) {
+        return;
+        }
+        element.classList.add("is-read");
+        if (window.google && google.script && google.script.run) {
+        google.script.run.markAsRead(id);
+        }
+    }
+
+    document.getElementById("modal-close").onclick = closeModal;
+    overlay.onclick = function(e) {
+        if (e.target === overlay) {
+        closeModal();
+        }
+    };
+
+    function closeModal() {
+        overlay.style.display = "none";
+        overlay.style.paddingTop = "";
+        document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+        var targetId = this.getAttribute('href').slice(1);
+        var target = document.getElementById(targetId);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    });
+
+    function escapeHtml(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function escapeAttr(value) {
+    return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    function getTagClass(tag) {
+    const text = String(tag || "");
+    if (text.includes("メンテナンス")) return "tag-maintenance";
+    if (text.includes("依頼")) return "tag-request";
+    if (text.includes("イベント")) return "tag-event";
+    if (text.includes("システム")) return "tag-system";
+    if (text.includes("その他")) return "tag-other";
+    return "tag-info";
+    }
+
+    function showArchivePage() {
+    const topPage = document.getElementById("top-page");
+    const archivePage = document.getElementById("archive-page");
+    if (topPage) topPage.style.display = "none";
+    if (archivePage) archivePage.style.display = "block";
+
+    if (window.google && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(renderArchivePage).getArchiveData();
+    }
+    }
+
+    function toggleAccordion(elementId) {
+    const content = document.getElementById(elementId);
+    if (!content) return;
+    content.style.display = content.style.display === "block" ? "none" : "block";
+    }
+
+    function handleAccordionClick(element, contentId, noticeId) {
+    toggleAccordion(contentId);
+    const titleElement = element.querySelector(".archive-title");
+    if (titleElement && !titleElement.classList.contains("is-read")) {
+        titleElement.classList.add("is-read");
+        if (window.google && google.script && google.script.run) {
+        google.script.run.markAsRead(noticeId);
+        }
+    }
+    }
+
+    const ITEMS_PER_PAGE = 10;
+    let archiveDataCache = {
+    important: [],
+    news: [],
+    readHistory: []
+    };
+    let currentPageState = {
+    important: 1,
+    news: 1
+    };
+
+    function updatePage(type, newPage) {
+    const list = archiveDataCache[type];
+    if (!list || list.length === 0) return;
+
+    const maxPage = Math.ceil(list.length / ITEMS_PER_PAGE);
+    if (newPage < 1 || newPage > maxPage) return;
+
+    currentPageState[type] = newPage;
+    const containerId = type === "important" ? "archive-important-list" : "archive-news-list";
+    renderPaginatedList(type, list, containerId);
+
+    const titleId = type === "important" ? "title-important" : "title-news";
+    const titleElement = document.getElementById(titleId);
+    if (titleElement) {
+        setTimeout(function() {
+        titleElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+    }
+    }
+
+    function changePage(type, direction) {
+    updatePage(type, currentPageState[type] + direction);
+    }
+
+    function renderPaginatedList(type, items, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!items || items.length === 0) {
+        container.innerHTML = '<p class="empty-state">履歴はありません。</p>';
+        return;
+    }
+
+    const page = currentPageState[type];
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const displayItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const maxPage = Math.ceil(items.length / ITEMS_PER_PAGE);
+    const readHistory = archiveDataCache.readHistory || [];
+
+    let html = '<ul class="archive-list">';
+    displayItems.forEach(function(item, index) {
+        const uniqueId = `accordion-content-${type}-${page}-${index}`;
+        const readClass = readHistory.includes(item.id) ? "is-read" : "";
+
+        html += `
+        <li class="archive-item">
+            <button class="archive-toggle" type="button" onclick="handleAccordionClick(this, '${uniqueId}', '${escapeAttr(item.id)}')">
+            <div class="archive-date">${escapeHtml(item.date || "")}</div>
+            <div class="archive-title-row">
+                <span class="archive-title ${readClass}">${escapeHtml(item.title || "")}</span>
+                <span class="archive-chevron">▼</span>
+            </div>
+            </button>
+            <div id="${uniqueId}" class="archive-content">
+            <div class="archive-content-inner">
+                ${item.url ? `<a class="archive-link" href="${escapeAttr(item.url)}" target="_blank" rel="noopener">リンクを開く</a>` : ""}
+                <div>${escapeHtml(item.content || "")}</div>
+            </div>
+            </div>
+        </li>
+        `;
+    });
+    html += "</ul>";
+
+    if (maxPage > 1) {
+        html += '<div class="pagination-container">';
+        html += `<button class="pagination-btn" type="button" onclick="changePage('${type}', -1)" ${page === 1 ? "disabled" : ""}>前へ</button>`;
+
+        const windowSize = 2;
+        let lastAddedPage = 0;
+        for (let i = 1; i <= maxPage; i++) {
+        if (i === 1 || i === maxPage || (i >= page - windowSize && i <= page + windowSize)) {
+            if (lastAddedPage + 1 < i) {
+            html += '<span class="pagination-dots">...</span>';
+            }
+            html += `<button class="pagination-btn ${i === page ? "active" : ""}" type="button" onclick="updatePage('${type}', ${i})">${i}</button>`;
+            lastAddedPage = i;
+        }
+        }
+
+        html += `<button class="pagination-btn" type="button" onclick="changePage('${type}', 1)" ${page === maxPage ? "disabled" : ""}>次へ</button>`;
+        html += "</div>";
+    }
+
+    container.innerHTML = html;
+    }
+
+    function renderArchivePage(data) {
+    archiveDataCache.readHistory = data.readHistory || [];
+    archiveDataCache.important = data.importantArchive || [];
+    archiveDataCache.news = data.newsArchive || [];
+    currentPageState.important = 1;
+    currentPageState.news = 1;
+
+    if (document.getElementById("archive-important-list")) {
+        renderPaginatedList("important", archiveDataCache.important, "archive-important-list");
+    }
+    if (document.getElementById("archive-news-list")) {
+        renderPaginatedList("news", archiveDataCache.news, "archive-news-list");
+    }
+    }
+
+    function openArchiveInNewTab(type) {
+    if (window.google && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(function(url) {
+        window.open(url + "?page=archive&type=" + type, "_blank");
+        }).getAppUrl();
+    }
+    }
+
+    if (window.google && google.script && google.script.url) {
+    google.script.url.getLocation(function(location) {});
+    }
+
+    <? if (isArchive) { ?>
+    if (window.google && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(renderArchivePage).getArchiveData();
+    }
+    <? } ?>
+
+    let currentStory = 0;
+    let storyTimer;
+    const STORY_DURATION = 5000;
+    let slides = [];
+    let progressFills = [];
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const storyContainer = document.getElementById("story-container");
+    if (storyContainer && window.google && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(initStory).getStoryImages();
+    }
+    });
+
+    function initStory(imageDataUrls) {
+    const imgContainer = document.getElementById("story-images-container");
+    const progressContainer = document.getElementById("story-progress");
+    if (!imgContainer || !progressContainer) return;
+
+    imgContainer.innerHTML = "";
+    progressContainer.innerHTML = "";
+    progressFills = [];
+
+    if (!imageDataUrls || imageDataUrls.length === 0) {
+        imgContainer.innerHTML = '<div class="empty-state">画像がありません</div>';
+        return;
+    }
+
+    imageDataUrls.forEach(function(url, index) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.className = "story-slide" + (index === 0 ? " active" : "");
+        imgContainer.appendChild(img);
+
+        const bar = document.createElement("div");
+        bar.className = "progress-bar";
+        const fill = document.createElement("div");
+        fill.className = "progress-fill";
+        bar.appendChild(fill);
+        progressContainer.appendChild(bar);
+        progressFills.push(fill);
+    });
+
+    slides = document.querySelectorAll(".story-slide");
+    showStory(0);
+    }
+
+    function showStory(index) {
+    if (!slides || slides.length === 0) return;
+
+    if (index >= slides.length) currentStory = 0;
+    else if (index < 0) currentStory = slides.length - 1;
+    else currentStory = index;
+
+    slides.forEach(function(slide, i) {
+        slide.classList.toggle("active", i === currentStory);
+    });
+
+    progressFills.forEach(function(fill, i) {
+        fill.style.transition = "none";
+        if (i < currentStory) {
+        fill.style.width = "100%";
+        } else if (i === currentStory) {
+        fill.style.width = "0%";
+        setTimeout(function() {
+            fill.style.transition = `width ${STORY_DURATION}ms linear`;
+            fill.style.width = "100%";
+        }, 50);
+        } else {
+        fill.style.width = "0%";
+        }
+    });
+
+    clearTimeout(storyTimer);
+    storyTimer = setTimeout(function() {
+        nextStory();
+    }, STORY_DURATION);
+    }
+
+    function nextStory() {
+    showStory(currentStory + 1);
+    }
+
+    function prevStory() {
+    showStory(currentStory - 1);
+    }
+
+    function openAllStories(event) {
+    event.stopPropagation();
+    if (!slides || slides.length === 0) return;
+
+    let allImagesHtml = "";
+    slides.forEach(function(slide) {
+        allImagesHtml += `<img src="${slide.src}" style="display:block;width:100%;height:auto;margin-bottom:20px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.35);">`;
+    });
+
+    const isMobile = window.innerWidth <= 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+        const existingViewer = document.getElementById("story-fullscreen-viewer");
+        if (existingViewer) existingViewer.remove();
+
+        const viewer = document.createElement("div");
+        viewer.id = "story-fullscreen-viewer";
+        viewer.style.position = "fixed";
+        viewer.style.inset = "0";
+        viewer.style.backgroundColor = "#111";
+        viewer.style.zIndex = "99999";
+        viewer.style.overflowY = "auto";
+        viewer.style.padding = "10px";
+        viewer.style.boxSizing = "border-box";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "閉じる";
+        closeBtn.style.position = "fixed";
+        closeBtn.style.top = "15px";
+        closeBtn.style.right = "15px";
+        closeBtn.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+        closeBtn.style.color = "#fff";
+        closeBtn.style.padding = "8px 16px";
+        closeBtn.style.border = "0";
+        closeBtn.style.borderRadius = "999px";
+        closeBtn.style.fontSize = "14px";
+        closeBtn.style.fontWeight = "bold";
+        closeBtn.style.cursor = "pointer";
+        closeBtn.style.zIndex = "100000";
+        closeBtn.onclick = function() {
+        viewer.remove();
+        document.body.style.overflow = "";
+        };
+        viewer.appendChild(closeBtn);
+
+        const imgContainer = document.createElement("div");
+        imgContainer.style.width = "100%";
+        imgContainer.style.maxWidth = "800px";
+        imgContainer.style.margin = "56px auto 20px";
+        imgContainer.innerHTML = allImagesHtml;
+        viewer.appendChild(imgContainer);
+        document.body.appendChild(viewer);
+        document.body.style.overflow = "hidden";
+    } else {
+        const newWindow = window.open();
+        if (newWindow) {
+        newWindow.document.write(`
+            <!DOCTYPE html>
+            <html lang="ja">
+            <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>DI本部ニュース</title>
+            </head>
+            <body style="margin:0;padding:20px;background-color:#111;">
+            <div style="width:100%;max-width:800px;margin:0 auto;">${allImagesHtml}</div>
+            </body>
+            </html>
+        `);
+        newWindow.document.close();
+        }
+    }
+    }
+</script>
+</body>
+</html>
